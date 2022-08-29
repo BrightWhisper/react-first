@@ -4,14 +4,34 @@ class DigitalClock extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: new Date(),
+      date: new Date(),
+      count: 0,
     }
+  }
+
+  componentDidMount() {
+    // this.timer = setInterval(() => {
+    //   this.setState({ date: new Date() })
+    // }, 1000)
+  }
+
+  componentDidUpdate(prevProps, prevState, snapShot) {
+    console.log(prevProps, prevState, snapShot)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer)
+  }
+
+  add() {
+    this.setState({ count: this.state.count + 1 })
   }
 
   render() {
     return (
       <div className="digital-clock-component jumbotron">
-        <h1>{this.state.data.toLocaleTimeString()}</h1>
+        <button onClick={() => this.add()}>{this.state.count}</button>
+        <h1>{this.state.date && this.state.date.toLocaleTimeString()}</h1>
       </div>
     )
   }
